@@ -1,1 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="96" fill="#355e48"/><path d="M110 355c95-20 103-132 120-230 60 38 112 93 87 154-22 55-87 78-154 76 51-22 94-62 119-118-46 53-100 88-172 118z" fill="#f4efe3"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Herbier Lab">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#214b38"/>
+      <stop offset="1" stop-color="#0f2f24"/>
+    </linearGradient>
+    <linearGradient id="liquid" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d5f39a"/>
+      <stop offset="1" stop-color="#82bd53"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="104" fill="url(#bg)"/>
+  <circle cx="388" cy="112" r="18" fill="#9dd36d" opacity=".8"/>
+  <circle cx="414" cy="152" r="10" fill="#d5f39a" opacity=".75"/>
+  <path d="M202 79h108v35h-17v91l88 161c18 33-6 73-44 73H175c-38 0-62-40-44-73l88-161v-91h-17z" fill="#f7f3e8"/>
+  <path d="M238 114v101l-89 163c-8 15 3 33 20 33h174c17 0 28-18 20-33l-89-163V114z" fill="#dfe9dd"/>
+  <path d="M164 355c52-30 105-14 151-38 18-10 34-25 49-47l34 63-35 63H166c-15 0-25-16-18-29z" fill="url(#liquid)"/>
+  <path d="M310 312c29-72 74-103 127-108-7 57-36 105-101 127-19 6-35 3-46-4 18-19 42-40 75-62-35 15-60 31-82 50 5-3 16-4 27-3z" fill="#74b957"/>
+  <path d="M325 327c17-39 44-74 86-105" fill="none" stroke="#eef7d7" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="218" cy="340" r="15" fill="#eef7d7" opacity=".8"/>
+  <circle cx="257" cy="370" r="10" fill="#eef7d7" opacity=".65"/>
+  <circle cx="292" cy="344" r="7" fill="#eef7d7" opacity=".7"/>
+</svg>

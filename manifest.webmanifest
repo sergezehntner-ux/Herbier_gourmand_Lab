@@ -1,16 +1,14 @@
 {
+  "id": "./herbier-lab",
   "name": "Herbier Lab",
   "short_name": "HG Lab",
+  "description": "Version expérimentale d’Herbier Gourmand — laboratoire culinaire",
   "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#f4efe3",
-  "theme_color": "#355e48",
+  "theme_color": "#214b38",
   "icons": [
-    {
-      "src": "icon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml"
-    }
-  ],
-  "description": "Version expérimentale d'Herbier Gourmand"
+    {"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
 }

@@ -1,5 +1,5 @@
 
-let recipes=[], plan=[], shopping=[];
+let recipes=[], plan=[], shopping=[], herbs=[];
 const days=["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"];
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const norm=s=>(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
@@ -12,6 +12,7 @@ async function init(){
     const response=await fetch(`recipes.json?_=${Date.now()}`,{cache:"no-store"});
     if(!response.ok) throw new Error("recipes.json indisponible");
     recipes=await response.json();
+    await loadHerbier();
     fillCategories();
     renderRecipes();
     loadSaved();
@@ -32,6 +33,53 @@ async function init(){
 function switchView(id){$$(".view").forEach(v=>v.classList.toggle("active",v.id===id));$$("nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===id));window.scrollTo(0,0)}
 $$("nav button").forEach(b=>b.onclick=()=>switchView(b.dataset.view));$$("[data-go]").forEach(b=>b.onclick=()=>switchView(b.dataset.go));
 
+async function loadHerbier(){
+  try{
+    const response=await fetch(`herbier.json?_=${Date.now()}`,{cache:"no-store"});
+    if(!response.ok) throw new Error("herbier.json indisponible");
+    herbs=await response.json();
+    fillHerbierTypes();
+    renderHerbier();
+  }catch(error){
+    console.error(error);
+    const list=$("#herbierList");
+    if(list) list.innerHTML="<p>L’Herbier n’a pas pu être chargé. Appuie sur « Actualiser ».</p>";
+  }
+}
+function fillHerbierTypes(){
+  const select=$("#herbierType");
+  if(!select) return;
+  select.innerHTML='<option value="">Toutes les familles</option>';
+  [...new Set(herbs.map(h=>h.type))].sort().forEach(type=>select.insertAdjacentHTML("beforeend",`<option>${type}</option>`));
+}
+function renderHerbier(){
+  const list=$("#herbierList");
+  if(!list) return;
+  const q=norm($("#herbierSearch")?.value), type=$("#herbierType")?.value||"";
+  const found=herbs.filter(h=>(!type||h.type===type)&&(!q||norm(JSON.stringify(h)).includes(q)));
+  list.innerHTML=found.map(h=>`<article class="herb-card">
+    <button class="herb-summary" type="button" aria-expanded="false">
+      <span class="herb-emoji" aria-hidden="true">${h.emoji||"🌿"}</span>
+      <span><span class="herb-type">${h.type}</span><h3>${h.nom}</h3><span class="meta">${h.gout}</span></span>
+    </button>
+    <div class="herb-details">
+      <h4>Accords culinaires</h4><div class="pairings">${h.accords.map(a=>`<span>${a}</span>`).join("")}</div>
+      <h4>Usages</h4><p>${h.usages}</p>
+      <h4>Saison</h4><p>${h.saison}</p>
+      <h4>Conservation</h4><p>${h.conservation}</p>
+      <h4>Tradition</h4><p>${h.tradition}</p>
+      <h4>À savoir</h4><p>${h.precaution}</p>
+    </div>
+  </article>`).join("")||"<p>Aucune fiche trouvée.</p>";
+  list.querySelectorAll(".herb-summary").forEach(button=>button.onclick=()=>{
+    const details=button.nextElementSibling;
+    const open=details.classList.toggle("open");
+    button.setAttribute("aria-expanded",String(open));
+  });
+}
+$("#herbierSearch")?.addEventListener("input",renderHerbier);
+$("#herbierType")?.addEventListener("change",renderHerbier);
+
 function fillCategories(){[...new Set(recipes.map(r=>r.category))].sort().forEach(c=>$("#category").insertAdjacentHTML("beforeend",`<option>${c}</option>`))}
 function renderRecipes(){
  const q=norm($("#search").value), cat=$("#category").value, max=+$("#maxTime").value||999;
@@ -40,7 +88,7 @@ function renderRecipes(){
  $$(".recipe-head").forEach(b=>b.onclick=()=>b.nextElementSibling.classList.toggle("open"));
 }
 function recipeCard(r){
- return `<article class="recipe"><button class="recipe-head"><div class="meta">${r.category} · ${r.time} min · ${r.servings} pers. · ${r.temperature}</div><h3>${r.title}</h3><div class="badges">${r.tags.map(t=>`<span>${t}</span>`).join("")}</div></button>
+ return `<article class="recipe"><button class="recipe-head"><div class="meta">${r.category} · ${r.time} min · ${r.servings} pers. · ${r.temperature}</div><h3>${r.title}</h3><div class="badges">${(r.tags||[]).map(t=>`<span>${t}</span>`).join("")}</div></button>
  <div class="details"><h4>Ingrédients</h4><ul>${r.ingredients.map(i=>`<li>${i[0]} : ${i[1]} ${i[2]}</li>`).join("")}</ul><h4>Préparation</h4><ol>${r.steps.map(s=>`<li>${s}</li>`).join("")}</ol></div></article>`
 }
 $("#search").oninput=renderRecipes;$("#category").onchange=renderRecipes;$("#maxTime").onchange=renderRecipes;
@@ -227,7 +275,7 @@ $("#installBtn").onclick=async()=>{if(deferredPrompt){deferredPrompt.prompt();aw
 init();
 
 
-const APP_VERSION="2.4.2";
+const APP_VERSION="0.2.0-lab";
 const UPDATE_RELOAD_KEY="hg-update-reload";
 
 async function clearAppCaches(){
@@ -282,7 +330,7 @@ async function checkForUpdate(){
       return;
     }
     sessionStorage.removeItem(UPDATE_RELOAD_KEY);
-    status.textContent=`À jour · v${APP_VERSION}`;
+    status.textContent="À jour · Lab 0.2";
     status.className="update-status ok";
   }catch(e){
     status.textContent="Mode hors connexion";

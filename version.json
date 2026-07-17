@@ -1,6 +1,7 @@
 {
-  "version": "3.0.0-lab",
-  "build": 242,
-  "label": "Herbier Lab",
+  "version": "0.2.0-lab",
+  "build": 302,
+  "label": "Module Herbier et nouvelle icône Lab",
+  "base": "2.4.2",
   "published": "2026-07-17"
 }

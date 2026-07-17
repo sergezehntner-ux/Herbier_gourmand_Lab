@@ -38,3 +38,26 @@
   #planner .panel>.grid{grid-template-columns:1fr}
   #dayChoices{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
+
+/* Herbier Lab 0.2 */
+:root{--green:#355e48;--lab:#214b38;--lab-light:#e9f2e8;--accent:#8fbd62}
+header{background:linear-gradient(135deg,var(--lab),#35664a);display:flex;justify-content:space-between;align-items:center;gap:16px}
+.lab-badge{display:inline-block;margin-top:9px;padding:5px 10px;border-radius:999px;background:#ffffff22;border:1px solid #ffffff55;font-size:.78rem;font-weight:700}
+nav{grid-template-columns:repeat(5,1fr)}
+.herbier-intro,.herbier-tools,.herb-card{background:var(--p);border:1px solid var(--line);border-radius:16px;padding:15px;margin:12px 0}
+.herbier-intro h2{font-family:Georgia,serif;font-size:2rem;margin:3px 0}
+.eyebrow{text-transform:uppercase;letter-spacing:.08em;font-size:.75rem;font-weight:800;color:var(--g);margin:0}
+.herbier-tools{display:grid;grid-template-columns:2fr 1fr;gap:10px}
+.herbier-list{display:grid;gap:12px}
+.herb-card{margin:0}
+.herb-summary{display:flex;align-items:flex-start;gap:12px;width:100%;border:0;padding:0;background:transparent;text-align:left;color:inherit}
+.herb-emoji{display:grid;place-items:center;flex:0 0 54px;height:54px;border-radius:14px;background:var(--lab-light);font-size:1.8rem}
+.herb-summary h3{font-family:Georgia,serif;font-size:1.25rem;margin:0 0 3px}
+.herb-type{display:inline-block;font-size:.72rem;font-weight:800;color:var(--g);background:var(--lab-light);border-radius:999px;padding:3px 8px}
+.herb-details{display:none;padding-top:14px;margin-top:14px;border-top:1px solid var(--line)}
+.herb-details.open{display:block}
+.herb-details h4{margin:12px 0 4px}
+.pairings{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}
+.pairings span{background:var(--lab-light);border:1px solid #c9ddc6;border-radius:999px;padding:5px 9px;font-size:.82rem}
+@media(max-width:620px){nav button{font-size:.78rem;padding:12px 2px}.herbier-tools{grid-template-columns:1fr}header{align-items:flex-start}}
+@media print{#herbier{display:none!important}}
