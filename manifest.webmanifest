@@ -1,6 +1,6 @@
 {
-  "name": "Herbier Gourmand",
-  "short_name": "Herbier",
+  "name": "Herbier Lab",
+  "short_name": "HG Lab",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#f4efe3",
@@ -11,5 +11,6 @@
       "sizes": "any",
       "type": "image/svg+xml"
     }
-  ]
+  ],
+  "description": "Version expérimentale d'Herbier Gourmand"
 }
